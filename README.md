@@ -18,8 +18,6 @@ We build an offline, autonomous, predictive NOC copilot for **SD-WAN-over-MPLS**
 - [Air-Gap Approach](#air-gap-approach)
 - [Build Timeline](#build-timeline)
 - [Team](#team)
-- [Documentation](#documentation)
-- [License](#license)
 
 ---
 
@@ -93,8 +91,6 @@ The platform is organised in six layers inside a single air-gapped boundary. Dat
 │            MPLS underlay · BGP/OSPF · fault injection               │
 └─────────────────────────────────────────────────────────────────────┘
 ```
-
-The full component reference and data-flow description are in [ARCHITECTURE.md](ARCHITECTURE.md) and [DOCUMENTATION.md](DOCUMENTATION.md).
 
 ## Confidence Scoring
 
@@ -177,10 +173,6 @@ A four-member team:
 | LLM / RAG | Runbook authoring, FAISS index, LangChain pipeline, Ollama setup, prompt design |
 | Integration / UI | Streamlit dashboard, alert-to-copilot wiring, demo flow, documentation |
 
-## Documentation
-
-- [ARCHITECTURE.md](ARCHITECTURE.md) — layered architecture, component reference, and data flow.
-- [DOCUMENTATION.md](DOCUMENTATION.md) — full build reference: glossary, deliverables, dataset and simulation strategy, step-by-step pipeline, roadmap, and evaluation mapping.
 
 
 
