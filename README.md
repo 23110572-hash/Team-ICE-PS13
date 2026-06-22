@@ -2,7 +2,7 @@
 
 > **Bharatiya Antariksh Hackathon 2026 — Problem Statement 13 — Cybersecurity / Secure Network Operations**
 
-We build an offline, autonomous, predictive NOC copilot for **SD-WAN-over-MPLS** networks in secure, air-gapped enterprise and government deployments. The system forecasts faults — congestion build-up, BGP/OSPF routing instability, tunnel health degradation, controller policy drift — *before* they impact service, explains each prediction in plain English using a locally hosted LLM grounded in the operator's own runbooks and topology, and recommends the corrective action. It runs entirely inside the air-gap with zero outbound network dependency.
+We build an offline, autonomous, predictive NOC copilot for **SD-WAN-over-MPLS** networks in secure, air-gapped enterprise and government deployments. The system forecasts faults congestion build-up, BGP/OSPF routing instability, tunnel health degradation, controller policy drift — *before* they impact service, explains each prediction in plain English using a locally hosted LLM grounded in the operator's own runbooks and topology, and recommends the corrective action. It runs entirely inside the air-gap with zero outbound network dependency.
 
 ---
 
@@ -141,7 +141,6 @@ The whole stack runs on a single laptop, which is our demo configuration.
 | CPU | 8+ cores |
 | RAM | 32 GB |
 | Disk | 60 GB |
-| GPU | Optional; helps LLM latency |
 
 A 4-bit quantized Llama-3-8B uses about 4–5 GB of RAM at inference. Alongside it the host runs Containerlab (~9 FRR containers), the traffic generator, the ingestion pipeline, DuckDB, and the Streamlit dashboard. For a responsive live demo we run in demo mode: models are pre-trained and loaded, the FAISS index is pre-built, Ollama is pre-warmed, and scenarios are replayed from the labelled dataset. Heavy model training is done ahead of time.
 
@@ -167,25 +166,6 @@ The system is designed to prove zero outbound dependency at runtime:
 3. The demo runs with the network interface down and outbound traffic blocked, allowing loopback only.
 4. A `verify_airgap.sh` script captures egress with tcpdump and ss during a full inference cycle to demonstrate zero outbound traffic.
 
-## Build Timeline
-
-| Date | Milestone |
-|---|---|
-| 10 June – 1 July 2026 | Registration and idea submission |
-| 20 July 2026 | Shortlist announced |
-| 21 July 2026 | Induction session |
-| 6–7 August 2026 | 30-hour Grand Finale |
-
-The pre-finale build order:
-
-1. Stand up the SD-WAN-over-MPLS Containerlab topology with FRR, BGP, OSPF, LDP, RSVP-TE, IPSec overlay, and the closed-loop controller (vtysh + tc).
-2. Wire the four-source ingestion pipeline (SNMP, syslog, NetFlow/IPFIX, controller telemetry) into DuckDB.
-3. Implement the four scenarios plus supporting precursor classes and produce a labelled dataset.
-4. Engineer features and train the models — Prophet decomposition, the LSTM forecaster, Isolation Forest, the graph-based anomaly detector, and the XGBoost ensemble; evaluate on temporal hold-outs and report lead time per scenario.
-5. Author the runbook corpus, build the FAISS index, wire Ollama and LangChain, and design the structured-response prompt with citation enforcement.
-6. Build the Streamlit dashboard, graph-based event correlation, alert prioritisation, and playbook sequencing.
-7. Package for the air-gap and verify offline on a clean machine.
-
 ## Team
 
 A four-member team:
@@ -201,8 +181,6 @@ A four-member team:
 
 - [ARCHITECTURE.md](ARCHITECTURE.md) — layered architecture, component reference, and data flow.
 - [DOCUMENTATION.md](DOCUMENTATION.md) — full build reference: glossary, deliverables, dataset and simulation strategy, step-by-step pipeline, roadmap, and evaluation mapping.
-- [Problem Statement .md](Problem%20Statement%20.md) — the official problem statement and evaluation criteria.
 
-## License
 
-Original project code is Apache-2.0. The bundled open-weight LLM (Llama-3-8B-Instruct) retains its upstream Meta Llama 3 Community Licence.
+
